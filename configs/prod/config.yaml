@@ -1,0 +1,71 @@
+server:
+  http:
+    addr: :8000
+    timeout: 5s
+  pprof:
+    addr: :8001
+data:
+  database:
+    driver: mysql
+    source: gaas:h$fm8zVUhc*nM8@f@tcp(172.16.0.31:3306)/gaas?charset=utf8mb4&parseTime=true&loc=Local
+    log_level: 4
+    max_conn: 100
+    max_idle_conn: 10
+    max_lifetime: 3600s
+  redis:
+    addr: 172.16.0.28:6379
+    password: XrsoqehRyzHtU1KX
+cron:
+  rank: "0 30 12 * * ?"
+  sub: "0 0 8 * * ?"
+  welfare: "0 0 20 * * ?"
+lock:
+  default_timeout: 1.5s
+nacos:
+  addr: 172.16.0.29
+  port: 8848
+  cache_dir: /data/logs/nacos/cache
+  log_dir: /data/logs/nacos/log
+  namespace: gaas
+  log_level: "error"
+  not_load_cache_at_start: true
+  timeout_ms: 5000
+kafka:
+  addrs: ["172.16.0.48:9092"]
+  consumer:
+    timeout: 2s
+    common:
+      topic: "jhss_pro_gaas_com"
+      group: "jhss_gamespace_pro"
+      mode: 1
+  producer:
+    common:
+      topic: "jhss_pro_gaas_com"
+zap:
+  dir: /data/logs/zaplog
+  file_name: gamespace
+  console: true
+  level: debug
+ta:
+  mode: 1
+  server_url: http://81.71.18.93
+  appid: 2ce279a349f74a369167c14aa6b8676c
+monitor:
+  monitor_time: 10
+  logfile_name: /data/logs/prom
+trace:
+  collector_url: "http://172.16.0.5:14268/api/traces"
+  agent_host: "172.16.0.5"
+  agent_port: "6831"
+  server_name: "prod_gamespace"
+service:
+  user:
+    login_timeout: 86400s
+middleware:
+  log_reply: true
+tp:
+  baidu:
+    appid: "zptI8PiTyoUNurA7KhkYRia2KWQayxKB"
+  robot:
+    count_latecy: "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=14166bf9-c7e0-4187-980d-ff606317ecfb"
+    panic: "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=3567806f-e5d8-45be-b00d-be517feeeeeb"
