@@ -83,4 +83,4 @@ Temporary Items
 /tools/fix/fix
 /tools/fix/*.json
 /tools/fix/__debug_bin
-cmd/gamespace/__debug_bin
+cmd/server/__debug_bin
