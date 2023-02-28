@@ -23,7 +23,7 @@ type httpServerImpl struct {
 	pprof    *shttp.Server
 }
 
-func NewHTTPServer(c *conf.Server, middlewareRepo wire.MiddlewareRepo, services ...wire.GinService) (transport.Server, error) {
+func NewHTTPServer(c *conf.Server, middlewareRepo wire.MiddlewareRepo, services ...wire.GinService) transport.Server {
 	var opts = []http.ServerOption{}
 	if c.Http.Network != "" {
 		opts = append(opts, http.Network(c.Http.Network))
@@ -64,7 +64,7 @@ func NewHTTPServer(c *conf.Server, middlewareRepo wire.MiddlewareRepo, services 
 			Handler: pprof.NewHandler(),
 		}
 	}
-	return impl, nil
+	return impl
 }
 
 func (s *httpServerImpl) Start(ctx context.Context) error {

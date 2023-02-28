@@ -116,19 +116,3 @@ func (d *Data) GetID() string {
 	name, _ := os.Hostname() //TODO: 获取实例的唯一ID
 	return name
 }
-
-var (
-	global *Data
-)
-
-func SetGlobal(data *Data) {
-	global = data
-}
-
-func Mdb() *gorm.DB {
-	return global.mdb
-}
-
-func Rdb() *redis.Client {
-	return global.rdb
-}

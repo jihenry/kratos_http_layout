@@ -15,13 +15,12 @@ import (
 	"github.com/go-kratos/kratos/v2"
 )
 
-// wireApp init kratos application.
+//TODO: 目前手动写的，使用wire自动生成
 func wireApp(confData *conf.Data, confServer *conf.Server, registry *nacos.Registry) (*kratos.App, func(), error) {
 	dataData, cleanup, err := data.NewData(confData)
 	if err != nil {
 		return nil, nil, err
 	}
-	data.SetGlobal(dataData)
 	middlewareRepo := rserver.NewMiddlewareRepo(dataData)
 	userRepo := ruser.NewUserRepo(dataData)
 	monitorRepo := rserver.NewMonitorRepo(dataData)
@@ -32,10 +31,7 @@ func wireApp(confData *conf.Data, confServer *conf.Server, registry *nacos.Regis
 	cronService := cron.NewCronService()
 	//kafka服务
 	commonKafkaConsumer := kafkaConsumer.NewKafkaCommonConsumer()
-	httpServer, err := server.NewHTTPServer(confServer, middlewareRepo, ginServices...)
-	if err != nil {
-		return nil, nil, err
-	}
+	httpServer := server.NewHTTPServer(confServer, middlewareRepo, ginServices...)
 	cronServer, err := server.NewCronServer(cronService)
 	if err != nil {
 		return nil, nil, err
